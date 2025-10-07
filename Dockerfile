@@ -4,7 +4,7 @@ ARG TARGETPLATFORM
 ARG TARGETOS
 ARG TARGETARCH
 
-RUN apt-get update && apt-get install -y make xz-utils wget && \
+RUN apt-get update && apt-get install -y nodejs npm make xz-utils wget && \
     case "$TARGETARCH" in \
         "amd64") \
             wget https://developer.arm.com/-/media/Files/downloads/gnu/14.3.rel1/binrel/arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi.tar.xz -O /tmp/toolchain.tar.xz \
@@ -17,4 +17,4 @@ RUN apt-get update && apt-get install -y make xz-utils wget && \
     tar -xf /tmp/toolchain.tar.xz -C /opt/armgcc --strip-components=1 && \
     rm /tmp/toolchain.tar.xz
 
-ENV PATH="/opt/armgcc/bin:${PATH}"
+ENV PATH="/opt/armgcc/bin:${PATH}:"
