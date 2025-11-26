@@ -7,8 +7,8 @@ on:
   push:
     tags:
       - "v*"
-    branches:
-      - main
+    # branches:
+    #   - main
   workflow_dispatch:
 # 定义环境变量, 后面会使用
 # 定义 APP_NAME 用于 docker build-args
@@ -53,7 +53,14 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       # 通过 git 命令获取当前 tag 信息, 存入环境变量 APP_VERSION
       - name: Generate App Version
-        run: echo APP_VERSION=`git describe --tags --always` >> $GITHUB_ENV
+        id: prep
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            VERSION=${GITHUB_REF#refs/tags/}
+          else
+            VERSION=latest
+          fi
+          echo "APP_VERSION=$VERSION" >> $GITHUB_ENV
       # 构建 Docker 并推送到 Docker hub
       - name: Build and push
         id: docker_build
@@ -73,5 +80,4 @@ jobs:
           tags: |
             ghcr.io/${{ env.DOCKERHUB_REPO }}:${{ env.APP_VERSION }}
             ${{ env.DOCKERHUB_REPO }}:${{ env.APP_VERSION }}
-          # ${{ env.DOCKERHUB_REPO }}:latest
             
