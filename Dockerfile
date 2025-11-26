@@ -5,7 +5,7 @@ ARG TARGETOS
 ARG TARGETARCH
 
 RUN apt-get update && apt-get install -y nodejs npm make xz-utils wget && \
-    git config --global --add safe.directory '*' \
+    git config --global --add safe.directory '*' && \
     npm install -g conventional-changelog-cli && \
     case "$TARGETARCH" in \
         "amd64") \
