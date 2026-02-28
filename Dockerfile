@@ -9,10 +9,10 @@ RUN apt-get update && apt-get install -y nodejs npm make xz-utils wget && \
     npm install -g conventional-changelog-cli && \
     case "$TARGETARCH" in \
         "amd64") \
-            wget https://developer.arm.com/-/media/Files/downloads/gnu/14.3.rel1/binrel/arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi.tar.xz -O /tmp/toolchain.tar.xz \
+            wget https://developer.arm.com/-/media/Files/downloads/gnu/15.2.rel1/binrel/arm-gnu-toolchain-15.2.rel1-x86_64-arm-none-eabi.tar.xz -O /tmp/toolchain.tar.xz \
             ;; \
         "arm64") \
-            wget https://developer.arm.com/-/media/Files/downloads/gnu/14.3.rel1/binrel/arm-gnu-toolchain-14.3.rel1-aarch64-arm-none-eabi.tar.xz -O /tmp/toolchain.tar.xz \
+            wget https://developer.arm.com/-/media/Files/downloads/gnu/15.2.rel1/binrel/arm-gnu-toolchain-15.2.rel1-aarch64-arm-none-eabi.tar.xz -O /tmp/toolchain.tar.xz \
             ;; \
     esac && \
     mkdir -p /opt/armgcc && \
